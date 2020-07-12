@@ -393,9 +393,10 @@ namespace MapsExchange
                 }
 
                 if (fill)
+                {
                     Graphics.DrawImage("ImagesAtlas.png", imgDrawRect, new RectangleF(.5f, 0, .5f, .731f), fillColor);
-
-                Graphics.DrawImage("ImagesAtlas.png", imgDrawRect, new RectangleF(0, 0, .5f, .731f), Color.Black);
+                    Graphics.DrawImage("ImagesAtlas.png", imgDrawRect, new RectangleF(0, 0, .5f, .731f), Color.Black);
+                }
 
                 if (Settings.ShowAmount.Value)
                 {
@@ -455,7 +456,7 @@ namespace MapsExchange
         }
 
         private void DrawNpcInvMaps()
-        {
+        {            
             var ingameState = GameController.Game.IngameState;
 
             var serverData = ingameState.ServerData;
@@ -468,7 +469,6 @@ namespace MapsExchange
             //var shapered = serverData.ShaperElderAreas;
 
             var drawListPos = new Vector2(200, 200);
-
             foreach (var inv in npcInv)
             {
                 foreach (var item in inv.Inventory.Items)
@@ -480,6 +480,9 @@ namespace MapsExchange
 
                     var mapArea = mapComponent.Area;
                     //var shaper = shapered.Contains(mapArea);
+
+                    if (mapArea == null)
+                        continue;
 
                     if (bonusComp.Contains(mapArea)) continue;
 

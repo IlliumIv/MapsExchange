@@ -33,44 +33,56 @@ namespace MapsExchange
         public ColorNode YellowMapColor { get; set; } = Color.Yellow;
         [Menu("Red Map Color")]
         public ColorNode RedMapColor { get; set; } = new Color(1, 0.3f, 0.3f, 1f);
-        [Menu("Show OnAtlas", -100)]
+
+
+        [Menu("", 1)]
+        public EmptyNode _1 { get; set; }
+        [Menu("Show OnAtlas", "Note: Press CTRL whe atlas opened to see map level end exp penalty", 1, 1)]
         public ToggleNode ShowOnAtlas { get; set; } = new ToggleNode(true);
-        [Menu("Note: Press CTRL whe atlas opened to see map level end exp penalty", -88, -100)]
-        public EmptyNode AtlasNote { get; set; }
-        [Menu("Maps Tab (to check amount)", -99, -100)]
+        [Menu("Maps Tab (to check amount)", 2, 1)]
         public RangeNode<int> MapTabNode { get; set; } = new RangeNode<int>(0, 0, 100);
-        [Menu("Show UnCompleted", 0, -100)]
-        public ToggleNode ShowUnCompleted { get; set; } = new ToggleNode(true);
-        [Menu("Text Transparency", 1, 0)]
-        public RangeNode<byte> UnCompletedTextTransparency { get; set; } = new RangeNode<byte>(255, 0, 255);
-        [Menu("Text Bg", 2, 0)]
-        public ColorNode UnCompletedTextBg { get; set; } = new Color(0, 0, 0, 1f);
-        [Menu("Filled Circle", 3, 0)]
-        public ToggleNode UnCompletedFilledCircle { get; set; } = new ToggleNode(true);
-        [Menu("Fill Color", 4, 3)]
-        public ColorNode UnCompletedFillColor { get; set; } = new Color(0, 0, 0, 0.75f);
-        [Menu("Show Completed", 100, -100)]
-        public ToggleNode ShowCompleted { get; set; } = new ToggleNode(true);
-        [Menu("Text Transparency", 101, 100)]
-        public RangeNode<byte> CompletedTextTransparency { get; set; } = new RangeNode<byte>(255, 0, 255);
-        [Menu("Text Bg", 102, 100)]
-        public ColorNode CompletedTextBg { get; set; } = new Color(0, 0, 0, 0.75f);
-        [Menu("Filled Circle", 103, 100)]
-        public ToggleNode CompletedFilledCircle { get; set; } = new ToggleNode(true);
-        [Menu("Fill Color", 104, 103)]
-        public ColorNode CompletedFillColor { get; set; } = new Color(1f, 0, 0, 0.235f);
-        [Menu("Show Bonus Completed", 200, -100)]
-        public ToggleNode ShowBonusCompleted { get; set; } = new ToggleNode(true);
-        [Menu("Text Transparency", 201, 200)]
-        public RangeNode<byte> BonusCompletedTextTransparency { get; set; } = new RangeNode<byte>(100, 0, 255);
-        [Menu("Text Bg", 202, 200)]
-        public ColorNode BonusCompletedTextBg { get; set; } = new Color(0, 0, 0, 0.5f);
-        [Menu("Filled Circle", 203, 200)]
-        public ToggleNode BonusCompletedFilledCircle { get; set; } = new ToggleNode(true);
-        [Menu("Fill Color", 2042, 203)]
-        public ColorNode BonusCompletedFillColor { get; set; } = new Color(0.1f, 0.9f, 0.1f, 0.01f);
-        [Menu("Show Buy Button")]
+        [Menu("Show Buy Button", 3, 1)]
         public ToggleNode ShowBuyButton { get; set; } = new ToggleNode(true);
+
+        [Menu("UnCompleted Map Settings", 2)]
+        public EmptyNode _2 { get; set; }
+        // [Menu("Show UnCompleted", 1, 2)]
+        // public ToggleNode ShowUnCompleted { get; set; } = new ToggleNode(true);
+        [Menu("Text Transparency", 1, 2)]
+        public RangeNode<byte> UnCompletedTextTransparency { get; set; } = new RangeNode<byte>(255, 0, 255);
+        [Menu("Text Bg", 2, 2)]
+        public ColorNode UnCompletedTextBg { get; set; } = new Color(0, 0, 0, 1f);
+        [Menu("Filled Circle", 3, 2)]
+        public ToggleNode UnCompletedFilledCircle { get; set; } = new ToggleNode(true);
+        [Menu("Fill Color", 4, 2)]
+        public ColorNode UnCompletedFillColor { get; set; } = new Color(0, 0, 0, 0.75f);
+
+        [Menu("Completed Map Settings", 3)]
+        public EmptyNode _3 { get; set; }
+        // [Menu("Show Completed", 0, 3)]
+        // public ToggleNode ShowCompleted { get; set; } = new ToggleNode(true);
+        [Menu("Text Transparency", 1, 3)]
+        public RangeNode<byte> CompletedTextTransparency { get; set; } = new RangeNode<byte>(255, 0, 255);
+        [Menu("Text Bg", 2, 3)]
+        public ColorNode CompletedTextBg { get; set; } = new Color(0, 0, 0, 0.75f);
+        [Menu("Filled Circle", 3, 3)]
+        public ToggleNode CompletedFilledCircle { get; set; } = new ToggleNode(true);
+        [Menu("Fill Color", 4, 3)]
+        public ColorNode CompletedFillColor { get; set; } = new Color(1f, 0, 0, 0.235f);
+
+
+        [Menu("Bonus Completed Map Settings", 4)]
+        public EmptyNode _4 { get; set; }
+        // [Menu("Show Bonus Completed", 0, 4)]
+        // public ToggleNode ShowBonusCompleted { get; set; } = new ToggleNode(true);
+        [Menu("Text Transparency", 1, 4)]
+        public RangeNode<byte> BonusCompletedTextTransparency { get; set; } = new RangeNode<byte>(100, 0, 255);
+        [Menu("Text Bg", 2, 4)]
+        public ColorNode BonusCompletedTextBg { get; set; } = new Color(0, 0, 0, 0.5f);
+        [Menu("Filled Circle", 3, 4)]
+        public ToggleNode BonusCompletedFilledCircle { get; set; } = new ToggleNode(true);
+        [Menu("Fill Color", 4, 4)]
+        public ColorNode BonusCompletedFillColor { get; set; } = new Color(0.1f, 0.9f, 0.1f, 0.01f);
 
         //[Menu("League")] // gonna use from GameController.Game.IngameState.ServerData.League
         //public ListNode League { get; set; } = new ListNode();
