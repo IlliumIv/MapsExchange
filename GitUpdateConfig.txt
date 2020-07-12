@@ -1,7 +1,0 @@
-Owner: zaafar
-Name: poehud_mapsexchange
-Repository
-
-Ignore:
-src
-README.md
