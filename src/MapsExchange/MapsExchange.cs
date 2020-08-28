@@ -41,9 +41,9 @@ namespace MapsExchange
         };
 
         private readonly List<int> InventShapersOrbs = new List<int>();
-        private readonly PoeTradeProcessor TradeProcessor = new PoeTradeProcessor();
+        // private readonly PoeTradeProcessor TradeProcessor = new PoeTradeProcessor();
         private IList<WorldArea> BonusCompletedMaps;
-        private Dictionary<string, int> CachedDropLvl = new Dictionary<string, int>();
+        // private Dictionary<string, int> CachedDropLvl = new Dictionary<string, int>();
         private IList<WorldArea> CompletedMaps;
         private long CurrentStashAddr;
         private bool LastVisible;
@@ -243,7 +243,7 @@ namespace MapsExchange
         {
             if (!Settings.ShowOnAtlas.Value) return;
 
-            var atlas = GameController.Game.IngameState.IngameUi.AtlasPanel;
+            var atlas = GameController.Game.IngameState.IngameUi.Atlas;
 
             if (LastVisible != atlas.IsVisible || CompletedMaps == null)
             {
@@ -437,9 +437,8 @@ namespace MapsExchange
                 if (string.IsNullOrEmpty(baseName) || !baseName.Contains("Shaper's Orb")) continue;
 
                 var tierStr = baseName.Replace("Shaper's Orb (Tier ", string.Empty).Replace(")", string.Empty);
-                int tierValue;
 
-                if (int.TryParse(tierStr, out tierValue))
+                if (int.TryParse(tierStr, out int tierValue))
                     InventShapersOrbs.Add(tierValue);
             }
         }
