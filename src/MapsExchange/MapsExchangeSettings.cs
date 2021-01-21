@@ -86,6 +86,6 @@ namespace MapsExchange
 
         //[Menu("League")] // gonna use from GameController.Game.IngameState.ServerData.League
         //public ListNode League { get; set; } = new ListNode();
-        public ToggleNode Enable { get; set; } = new ToggleNode(true);
+        public ToggleNode Enable { get; set; } = new ToggleNode(false);
     }
 }
