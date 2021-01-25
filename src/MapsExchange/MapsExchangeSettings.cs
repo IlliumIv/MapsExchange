@@ -9,6 +9,7 @@ namespace MapsExchange
     public class MapsExchangeSettings : ISettings
     {
         public Dictionary<string, int> MapStashAmount = new Dictionary<string, int>();
+        public Dictionary<string, int[]> MapRegionsAmount = new Dictionary<string, int[]>();
 
         public MapsExchangeSettings()
         {

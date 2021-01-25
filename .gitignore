@@ -287,3 +287,6 @@ __pycache__/
 *.xsd.cs
 config.ini
 ErrorLog.txt
+
+# KDiff3
+*.orig
