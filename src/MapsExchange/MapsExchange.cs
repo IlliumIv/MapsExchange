@@ -39,6 +39,7 @@ namespace MapsExchange
             {85, 77.85f},
             {86, 77.99f}
         };
+
         private readonly Color[] _atlasInventLayerColors = new[]
         {
             Color.Gray,
@@ -207,6 +208,7 @@ namespace MapsExchange
                 return false;
 
             Input.RegisterKey(Keys.LControlKey);
+
             return true;
         }
 
@@ -274,6 +276,7 @@ namespace MapsExchange
             {
                 var area = atlasMap.Area;
                 var mapName = area.Name;
+
                 if (mapName.Contains("Realm")) continue;
 
                 var layer = GameController.Game.IngameState.ServerData.GetAtlasRegionUpgradesByRegion(atlasMap.AtlasRegion);
@@ -328,7 +331,7 @@ namespace MapsExchange
                 mapNameSize.X += 5;
 
                 var nameBoxRect = new RectangleF(textRect.X - mapNameSize.X / 2, textRect.Y - mapNameSize.Y, mapNameSize.X,
-                    mapNameSize.Y);
+                                                 mapNameSize.Y);
 
                 Graphics.DrawBox(nameBoxRect, textBgColor);
 
@@ -356,7 +359,7 @@ namespace MapsExchange
                     textSize = Graphics.MeasureText(labelText, testSize);
 
                     penaltyRect = new RectangleF(textRect.X - mapNameSize.X / 2 - textSize.X, textRect.Y - textSize.Y, textSize.X,
-                        textSize.Y);
+                                                 textSize.Y);
 
                     Graphics.DrawBox(penaltyRect, Color.Black);
                     Graphics.DrawText(labelText, penaltyRect.Center.Translate(3, -8), areaLvlColor, testSize, FontAlign.Center);
@@ -367,7 +370,7 @@ namespace MapsExchange
                         var buyButtonRect = new RectangleF(textRect.X - butTextWidth / 2, textRect.Y - testSize * 2, butTextWidth, testSize);
 
                         Graphics.DrawImage("ImagesAtlas.png", buyButtonRect, new RectangleF(.367f, .731f, .184f, .223f),
-                            new Color(255, 255, 255, 255));
+                                           new Color(255, 255, 255, 255));
 
                         //buyButtonRect
                         //ImGui.Button()
@@ -399,7 +402,7 @@ namespace MapsExchange
 
                         Graphics.DrawBox(
                             new RectangleF(centerPos.X - mapCountSize.X / 2, centerPos.Y - mapCountSize.Y / 2, mapCountSize.X,
-                                mapCountSize.Y), Color.Black);
+                                           mapCountSize.Y), Color.Black);
 
                         textColor.A = 255;
                         Graphics.DrawText(amount.ToString(), centerPos.Translate(0, -5), textColor, testSize, FontAlign.Center);
@@ -521,9 +524,11 @@ namespace MapsExchange
             foreach (var invItem in items)
             {
                 var item = invItem.Item;
+
                 if (item == null) continue;
 
                 var bit = GameController.Files.BaseItemTypes.Translate(item.Path);
+
                 if (bit == null) continue;
 
                 if (bit.ClassName != "Map") continue;
@@ -539,12 +544,26 @@ namespace MapsExchange
 
                 var baseName = bit.BaseName;
                 var map = item.GetComponent<Map>();
+
+                if (map == null) continue;
+
                 var mapItem = new MapItem(baseName, drawRect, map.Tier);
                 var mapComponent = item.GetComponent<Map>();
 
+                if (mapComponent == null) continue;
+
                 if (checkAmount)
                 {
-                    var areaName = mapComponent.Area.Name;
+                    var area = mapComponent.Area;
+
+                    if (area == null)
+                    {
+                        LogError($"Area is null on {item.Address:X} {item.Path}", 3);
+
+                        continue;
+                    }
+
+                    var areaName = area.Name;
                     var mods = item.GetComponent<Mods>();
 
                     if (mods.ItemRarity == ItemRarity.Unique)
@@ -556,7 +575,7 @@ namespace MapsExchange
                     areaName += $":{mapComponent.Tier}";
 
                     var nodes = GameController.Files.AtlasNodes.EntriesList
-                                              .Where(x => x.Area.Id == mapComponent.Area.Id).ToList();
+                                              .Where(x => x.Area.Id == area.Id).ToList();
 
                     var node = nodes.FirstOrDefault();
 
@@ -595,9 +614,9 @@ namespace MapsExchange
             }
 
             var sortedMaps = (from demoClass in MapItems
-                                  //where demoClass.Tier >= Settings.MinTier && demoClass.Tier <= Settings.MaxTier
+                              //where demoClass.Tier >= Settings.MinTier && demoClass.Tier <= Settings.MaxTier
                               group demoClass by $"{demoClass.Name}|{demoClass.Tier}"
-                    into groupedDemoClass
+                              into groupedDemoClass
                               select groupedDemoClass
                 ).ToDictionary(gdc => gdc.Key, gdc => gdc.ToList());
 
@@ -627,6 +646,9 @@ namespace MapsExchange
 
         private void HiglightExchangeMaps()
         {
+            if (!Settings.ShowExchange.Value)
+                return;
+
             foreach (var drapMap in MapItems)
             {
                 Graphics.DrawFrame(drapMap.DrawRect, drapMap.DrawColor, Settings.BordersWidth.Value);
@@ -657,6 +679,7 @@ namespace MapsExchange
             foreach (var item in items)
             {
                 var entity = item?.Item;
+
                 if (entity == null) continue;
 
                 var bit = GameController.Files.BaseItemTypes.Translate(entity.Path);
@@ -749,6 +772,7 @@ namespace MapsExchange
                 if (!ArenaEffectiveLevels.TryGetValue(arenaLevel, out var scale))
                 {
                     LogError($"Can't calc ArenaEffectiveLevels from arenaLevel: {arenaLevel}", 2);
+
                     return 0;
                 }
 
@@ -765,6 +789,7 @@ namespace MapsExchange
                 xpMultiplier *= 1d / (1 + 0.1 * (characterLevel - 94));
 
             xpMultiplier = Math.Max(xpMultiplier, 0.01);
+
             return xpMultiplier;
         }
 

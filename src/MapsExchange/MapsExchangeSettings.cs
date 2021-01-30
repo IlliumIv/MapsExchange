@@ -18,6 +18,8 @@ namespace MapsExchange
             ShowPenalty = new ToggleNode(true);
         }
 
+        [Menu("Show Exchange maps")]
+        public ToggleNode ShowExchange { get; set; } = new ToggleNode(true);
         [Menu("Borders Width")]
         public RangeNode<int> BordersWidth { get; set; }
         [Menu("Spacing")]
